@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+    <div id="root">
+        <h1>Заголовок</h1>
+        <p>Это абзац.</p>
+        <ul>
+        <li>Элемент списка 1</li>
+        <li>Элемент списка 2</li>
+        <li>Элемент списка 3</li>
+        </ul>
+    </div>
+</body>
+<script>
+    function recursiveDOMTraversal(node) {
+  // Выполнить действие с текущим узлом (например, вывод информации о теге в консоль)
+        console.log(node.tagName);
+
+        // Рекурсивно обойти все дочерние элементы
+        for (let i = 0; i < node.children.length; i++) {
+            recursiveDOMTraversal(node.children[i]);
+        }
+    }
+
+    // Пример использования:
+    const startingElement = document.getElementById('root')
+    recursiveDOMTraversal(startingElement);
+</script>
+</html>

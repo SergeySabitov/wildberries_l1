@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th.sortable {
+            cursor: pointer;
+        }
+
+        .asc::after {
+            content: ' ▲';
+        }
+
+        .desc::after {
+            content: ' ▼';
+        }
+  </style>
+</head>
+<body>
+    <table id="data-table">
+    <thead>
+      <tr>
+        <th class="sortable" onclick="sortTable(0)">First Name</th>
+        <th class="sortable" onclick="sortTable(1)">Last Name</th>
+        <th class="sortable" onclick="sortTable(2)">Telephone</th>
+        <th class="sortable" onclick="sortTable(3)">Address</th>
+        <th class="sortable" onclick="sortTable(4)">City</th>
+        <th class="sortable" onclick="sortTable(5)">State</th>
+        <th class="sortable" onclick="sortTable(6)">Zip</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+
+  <div id="pagination"></div>
+</body>
+<script>
+    let data = []
+    let currentPage = 1;
+    const rowsPerPage = 50;
+    let totalRows = 0;
+    let totalPages = 0;
+
+    
+
+    function displayTableData() {
+      var startIndex = (currentPage - 1) * rowsPerPage;
+      var endIndex = startIndex + rowsPerPage;
+      var tableBody = document.getElementById("table-body");
+      tableBody.innerHTML = "";
+
+      for (var i = startIndex; i < endIndex && i < totalRows; i++) {
+        var row = document.createElement("tr");
+        row.innerHTML = "<td>" + data[i].fname + "</td>" +
+                        "<td>" + data[i].lname + "</td>" +
+                        "<td>" + data[i].tel + "</td>" +
+                        "<td>" + data[i].address + "</td>" +
+                        "<td>" + data[i].city + "</td>" +
+                        "<td>" + data[i].state + "</td>" +
+                        "<td>" + data[i].zip + "</td>";
+        tableBody.appendChild(row);
+      }
+    }
+
+    function displayPagination() {
+      var pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
+
+      for (var i = 1; i <= totalPages; i++) {
+        var button = document.createElement("button");
+        button.innerText = i;
+        button.onclick = function() {
+          currentPage = parseInt(this.innerText);
+          displayTableData();
+          displayPagination();
+        };
+        pagination.appendChild(button);
+      }
+    }
+
+    function sortTable(columnIndex) {
+    
+      let headers = document.getElementsByTagName('th');
+      for (var i = 0; i < headers.length; i++) {
+          if (i !== columnIndex) {
+            headers[i].classList.remove('asc');
+            headers[i].classList.remove('desc');
+          }
+      }
+
+    if (headers[columnIndex].classList.contains('asc')) {
+        data.reverse()
+        headers[columnIndex].classList.replace('asc', 'desc');
+    } else if (headers[columnIndex].classList.contains('desc')) {
+        data.reverse()
+        headers[columnIndex].classList.replace('desc','asc');
+    } else {
+              // Сортировка данных по выбранной колонке
+        data.sort(function(a, b) {
+            var valueA = a[Object.keys(a)[columnIndex]];
+            var valueB = b[Object.keys(b)[columnIndex]];
+
+            if (typeof valueA === "string" && typeof valueB === "string") {
+            return valueA.localeCompare(valueB);
+            } else {
+            return valueA - valueB;
+            }
+        });
+        headers[columnIndex].classList.add('asc')
+    }
+
+
+      displayTableData();
+    }
+          
+
+
+    var url = "http://www.filltext.com/?rows=1000&fname=%7BfirstName%7D&lname=%7BlastName%7D&tel=%7Bphone%7Cformat%7D&address=%7BstreetAddress%7D&city=%7Bcity%7D&state=%7BusState%7Cabbr%7D&zip=%7Bzip%7D&pretty=true";
+    
+    fetch(url)
+      .then(function(response) {
+        if (response.status !== 200) {
+          console.log('Произошла ошибка. Статус код: ' + response.status);
+          return;
+        }
+
+        response.json().then(function(apiData) {
+          data = apiData;
+          totalRows = data.length;
+          totalPages = Math.ceil(totalRows / rowsPerPage);
+          displayTableData();
+          displayPagination();
+        });
+      })
+      .catch(function(error) {
+        console.log('Произошла ошибка:', error);
+      });
+      
+      
+      
+      </script>
+</html>

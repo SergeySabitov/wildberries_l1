@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <template id="my-template">
+        <div class="my-element"></div>
+    </template>
+</body>
+<script>
+    function createAndAddElement() {
+  // Get the template element
+        const template = document.getElementById('my-template');
+
+        // Check if the browser supports template elements
+        if ('content' in template) {
+            // Clone the template content
+            const clone = document.importNode(template.content, true);
+
+            // Access and modify the elements within the template
+            const element = clone.querySelector('.my-element');
+            element.textContent = 'New Element';
+
+            // Add the cloned element to the DOM
+            document.body.appendChild(clone);
+        } else {
+            // Fallback for browsers that do not support template elements
+            console.error('Your browser does not support template elements.');
+        }
+    }
+    createAndAddElement();
+</script>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+function customJSONParse(jsonString) {
+  let index = 0;
+
+  function parseValue() {
+    const char = jsonString[index];
+
+    if (char === '{') {
+      return parseObject();
+    } else if (char === '[') {
+      return parseArray();
+    } else if (char === '"') {
+      return parseString();
+    } else if (char === 't' || char === 'f' || char === 'n') {
+      return parseKeyword();
+    } else if (char === '-' || (char >= '0' && char <= '9')) {
+      return parseNumber();
+    }
+
+    throw new SyntaxError('Invalid JSON');
+  }
+
+  function parseObject() {
+    const obj = {};
+    index++; // Пропускаем '{'
+
+    while (jsonString[index] !== '}') {
+      const key = parseString();
+      index++; // Пропускаем ':'
+      const value = parseValue();
+      obj[key] = value;
+
+      if (jsonString[index] === ',') {
+        index++;
+      }
+    }
+
+    index++; // Пропускаем '}'
+    return obj;
+  }
+
+  function parseArray() {
+    const arr = [];
+    index++; // Пропускаем '['
+
+    while (jsonString[index] !== ']') {
+      const value = parseValue();
+      arr.push(value);
+
+      if (jsonString[index] === ',') {
+        index++;
+      }
+    }
+
+    index++; // Пропускаем ']'
+    return arr;
+  }
+
+  function parseString() {
+    let result = '';
+    index++; // Пропускаем первую двойную кавычку
+
+    while (jsonString[index] !== '"') {
+      if (jsonString[index] === '\\') {
+        index++;
+        const escapeChar = jsonString[index];
+        if (escapeChar === 'n') {
+          result += '\n';
+        } else if (escapeChar === 't') {
+          result += '\t';
+        } else if (escapeChar === 'r') {
+          result += '\r';
+        } else {
+          result += escapeChar;
+        }
+      } else {
+        result += jsonString[index];
+      }
+      index++;
+    }
+
+    index++; // Пропускаем вторую двойную кавычку
+    return result;
+  }
+
+  function parseKeyword() {
+    const start = index;
+    while (/[a-z]/.test(jsonString[index])) {
+      index++;
+    }
+    const keyword = jsonString.slice(start, index);
+    if (keyword === 'true') {
+      return true;
+    } else if (keyword === 'false') {
+      return false;
+    } else if (keyword === 'null') {
+      return null;
+    }
+    throw new SyntaxError('Invalid JSON keyword');
+  }
+
+  function parseNumber() {
+    const start = index;
+    while (/[-+0-9.eE]/.test(jsonString[index])) {
+      index++;
+    }
+    const numberStr = jsonString.slice(start, index);
+    const number = parseFloat(numberStr);
+    if (isNaN(number)) {
+      throw new SyntaxError('Invalid JSON number');
+    }
+    return number;
+  }
+
+  return parseValue();
+}
+
+// Пример использования функции
+const jsonString = '{"name":"John","age":30,"city":"New York","arr":[1,2,3],"obj":{"surname":123}}';
+const parsedObject = customJSONParse(jsonString);
+console.log(parsedObject);
+document.writeln(jsonString,'<br />')
+
+document.writeln('Смотреть консоль)','<br />')
+
+ </script>
+</html>
+

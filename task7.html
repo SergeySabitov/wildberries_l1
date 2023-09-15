@@ -1,0 +1,33 @@
+
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+  const functions = [
+      () =>   document.writeln('Функция 1', '<br />'),
+      () =>   document.writeln('Функция 2', '<br />'),
+      () =>   document.writeln('Функция 3', '<br />')
+  ];
+  functions.reduce((seq, func) => {
+        return seq.then(() => {
+            return func();
+        });
+    }, Promise.resolve()).then(
+        () => document.writeln('Конец', '<br />'),
+        (e) => console.log(e)
+  );
+
+
+ </script>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+
+    const obj = {
+        num: 0,
+        string: "string",
+        func: function () {},
+        emptyString: '',
+        null: null,
+        undefined: undefined
+    }
+
+    const str = Object.entries(obj).reduce((a, e) => {
+        if (typeof e[1] != "function" && e[1] !== undefined) {
+            if(e[0] === "num" || e[0] === "null") {
+                a += `"${e[0]}":${e[1]},`;
+            } else {
+                a += `"${e[0]}":"${e[1]}",`;
+            }
+        }
+        return a;
+        }, "`{").slice(1, -1) + "}";
+    
+    document.writeln('hello')
+    document.writeln(str)
+
+    
+
+ </script>
+</html>
+

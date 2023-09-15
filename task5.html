@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+    class ListNode {
+        constructor(data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    function jsonToLinkedList(jsonString) {
+        try {
+            const jsonArray = JSON.parse(jsonString);
+
+            if (!Array.isArray(jsonArray)) {
+                throw new Error("Input JSON should be an array of objects.");
+            }
+
+            if (jsonArray.length === 0) {
+                return null;
+            }
+
+            // Создаем первый узел в списке
+            const head = new ListNode(jsonArray[0].value);
+
+            // Текущий узел, который мы будем изменять на каждой итерации
+            let current = head;
+
+            // Проходим по элементам JSON и создаем новые узлы
+            for (let i = 1; i < jsonArray.length; i++) {
+                current.next = new ListNode(jsonArray[i].value);
+                current = current.next;
+            }
+
+            return head;
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+            return null;
+        }
+    }
+
+    // Пример использования функции
+    const jsonString = '[{"value": 1}, {"value": 2}, {"value": 3}, {"value": 4}]';
+
+    const linkedList = jsonToLinkedList(jsonString);
+
+    // Выводим результат
+    let current = linkedList;
+    while (current !== null) {
+        document.writeln(current.data, '<br />');
+        current = current.next;
+    }
+
+ </script>
+</html>
+

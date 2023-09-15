@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+async function asyncFunction() {
+  try {
+    // Асинхронная операция 1
+    const result1 = await asyncOperation1();
+    document.writeln(`Результат операции 1: ${result1}`, '<br />')
+    console.log('Результат операции 1:', result1);
+
+    // Асинхронная операция 2
+    const result2 = await asyncOperation2();
+    document.writeln(`Результат операции 2: ${result2}`, '<br />')
+
+    // Асинхронная операция 3
+    const result3 = await asyncOperation3();
+    document.writeln(`Результат операции 3: ${result3}`, '<br />')
+
+    // Возвращаем результат или выполняем дополнительные операции
+    return result3; // Например, можно вернуть результат последней операции.
+  } catch (error) {
+    console.error('Произошла ошибка:', error);
+    throw error; // Можно выбросить ошибку или обработать её здесь.
+  }
+}
+
+// Пример асинхронных операций (заглушки для примера)
+async function asyncOperation1() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve('Результат операции 1'), 1000);
+  });
+}
+
+async function asyncOperation2() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve('Результат операции 2'), 2000);
+  });
+}
+
+async function asyncOperation3() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve('Результат операции 3'), 1500);
+  });
+}
+
+// Использование асинхронной функции
+asyncFunction()
+  .then((result) => {
+    document.writeln(`Результат асинхронной функции: ${result}`, '<br />')
+
+  })
+  .catch((error) => {
+    document.writeln(`Ошибка в асинхронной функции: ${error}`, '<br />')
+
+  });
+</script>
+</html>

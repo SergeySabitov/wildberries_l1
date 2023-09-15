@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Глубина стека вызова
+    <div>Yandex: 13917</div>
+    <div id="googleStack"></div>
+    <div>Edge: 13929</div>
+
+</body>
+<script>
+    function measureCallStackDepth() {
+        let depth = 0;
+
+        function recurse() {
+            depth++;
+            recurse();
+        }
+
+        try {
+            recurse();
+        } catch (error) {
+            document.getElementById('googleStack').innerText = 'Google: '+ depth
+            console.log('Глубина стека вызовов:', depth);
+            console.error(error);
+        }
+  }
+
+// Вызываем функцию для измерения
+measureCallStackDepth();
+</script>
+</html>

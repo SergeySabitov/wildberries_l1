@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script>
+      function check_Palindrome(str_entry) {
+          var cstr = str_entry.toLowerCase().replace(/[^a-zA-Z0-9]+/g,'');
+          var ccount = 0;
+          if(cstr==="") {
+            document.writeln("Ничего не найдено!", "<br/>");
+            return false;
+          }
+          if ((cstr.length) % 2 === 0) {
+            ccount = (cstr.length) / 2;
+          } else {
+            if (cstr.length === 1) {
+              document.writeln(str_entry, " - это палиндром.","<br/>");
+              return true;
+            } else {
+                  ccount = (cstr.length - 1) / 2;
+            }
+          }
+          for (var x = 0; x < ccount; x++) {
+            if (cstr[x] != cstr.slice(-1-x)[0]) {
+              document.writeln(str_entry, " - это не палиндром.","<br/>");
+              return false;
+            }
+          }
+          document.writeln(str_entry, " - это палиндром.","<br/>");
+          return true;
+      }
+  check_Palindrome('level');   
+  check_Palindrome('topot'); 
+  check_Palindrome('that');
+  check_Palindrome('');
+ </script>
+</html>

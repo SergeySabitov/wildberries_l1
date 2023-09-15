@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+  const people = [
+    { name: 'John', age: 25 },
+    { name: 'Alice', age: 30 },
+    { name: 'Bob', age: 25 },
+    { name: 'Eve', age: 20 },
+  ];
+
+  document.writeln('unsorted', '<br />');
+  people.map(p => {
+    document.writeln(`{${p.name}, ${p.age}}`);
+  })
+  people.sort((a, b) => {
+    // Сначала сравниваем возраст
+    if (a.age !== b.age) {
+        return a.age - b.age;
+    }
+    
+    // Если возрасты равны, сравниваем имена по алфавиту
+    return a.name.localeCompare(b.name);
+  });
+  document.writeln('', '<br />');
+  document.writeln('sorted', '<br />');
+  people.map(p => {
+    document.writeln(`{${p.name}, ${p.age}}`);
+  })
+
+
+ </script>
+</html>
+

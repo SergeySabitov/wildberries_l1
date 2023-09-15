@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="message"></div>
+    <div id="image"></div>
+</body>
+<script>
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    
+    img.onload = () => {
+      // Изображение успешно загружено, разрешаем промис данными об изображении.
+      resolve(img);
+    };
+    
+    img.onerror = () => {
+      // Если произошла ошибка загрузки изображения, отклоняем промис.
+      reject(new Error('Не удалось загрузить изображение.'));
+    };
+    
+    img.src = url; // Устанавливаем URL для загрузки изображения.
+  });
+}
+
+// Пример использования функции loadImage:
+const imageUrl = 'https://kg-portal.ru/img/92117/main_2x.jpg';
+
+loadImage(imageUrl)
+  .then((image) => {
+    document.getElementById('message').innerText = 'Изображение успешно загружено!';
+    document.getElementById('image').appendChild(image);
+    // Здесь вы можете выполнить дополнительные действия с загруженным изображением.
+  })
+  .catch((error) => {
+    document.getElementById('message').innerText = 'Ошибка при загрузке изображения'
+  });
+</script>
+</html>

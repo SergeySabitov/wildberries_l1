@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            overflow-x: hidden;
+            background-color: rgb(235,235,235);
+            font-family: 'Verdana';
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .posts {
+            background-color: rgb(245,245,245);
+            width: 500px;
+            max-height: 600px;
+            overflow-y: scroll;
+            margin: 0 auto;
+            box-shadow: 0 0 6px 0px rgba(0,0,0,0.4);
+        }
+
+        .post {
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+        .carousel {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+            min-width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .statistic_container {
+            display: flex;
+            width: 100%;
+            padding: 12px;
+            justify-content: space-between;
+            font-weight: 600;
+            color: rgb(170, 2, 105);
+            font-size: 14px;
+        }
+        .text {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 25px;
+            color: rgb(50,50,50);
+            margin: 12px;
+            max-height: 125px;
+            overflow: hidden;
+        }
+        .text.showAllText {
+            max-height: unset;
+        }
+        .showMore {
+            color: rgb(170, 2, 105);
+            font-weight: 500;
+            cursor: pointer;
+            margin: 12px
+        }
+        .showMore:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <button id="authButton">Авторизоваться</button>
+    <div class="posts" id="posts">
+
+    </div>
+</body>
+<script src="task19.js"></script>
+</html>
+

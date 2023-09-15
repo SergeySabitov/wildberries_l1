@@ -1,0 +1,41 @@
+
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+    function callFunctionsAndReturnResults(functions) {
+        return function () {
+            const results = [];
+            for (const func of functions) {
+            results.push(func());
+            }
+            return results;
+        };
+    }
+
+    const func1 = () => 2*2;
+    const func2 = () => 3*3;
+    const func3 = () => 4*4;
+
+    const arrayOfFunctions = [func1, func2, func3];
+
+    const combinedFunction = callFunctionsAndReturnResults(arrayOfFunctions);
+
+    const results = combinedFunction();
+
+    document.writeln('Результат вызова функций', '<br />')
+    document.writeln(results, '<br />')
+
+ </script>
+</html>
+

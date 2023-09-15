@@ -1,0 +1,79 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <input  />
+    <p id="rating"></p>
+    <div id="suggestions"></div>
+  </body>
+  <script>
+    const input = document.getElementsByTagName('input')[0]
+    const passwRating = document.getElementById('rating')
+    const suggestionContainer = document.getElementById('suggestions')
+
+    function evaluatePassword(password) {
+        // Оценка параметров сложности
+        var lengthScore = password.length >= 8 ? 1 : 0;
+        var uppercaseScore = /[A-Z]/.test(password) ? 1 : 0;
+        var lowercaseScore = /[a-z]/.test(password) ? 1 : 0;
+        var digitScore = /\d/.test(password) ? 1 : 0;
+        var specialCharScore = /[!@#$%^&*]/.test(password) ? 1 : 0;
+
+        // Общая оценка сложности пароля
+        var totalScore = lengthScore + uppercaseScore + lowercaseScore + digitScore + specialCharScore;
+
+        console.log("" + lengthScore + uppercaseScore + lowercaseScore + digitScore + specialCharScore)
+        // Предложение по улучшению пароля
+        var suggestions = [];
+        if (totalScore <= 4) {
+            if (lengthScore === 0) {
+                suggestions.push("Добавьте еще символов");
+            }
+            if (uppercaseScore === 0 || lowercaseScore === 0) {
+                suggestions.push("Используйте заглавные и строчные буквы");
+            }
+            if (digitScore === 0) {
+                suggestions.push("Включите цифры");
+            }
+            if (specialCharScore === 0) {
+                suggestions.push("Добавьте специальные символы");
+            }
+        }
+
+        // Вывод результата
+        // console.log("Оценка сложности пароля: " + totalScore);
+        // if (suggestions.length > 0) {
+        //     console.log("Предложения по улучшению пароля:");
+        //     suggestions.forEach(function(suggestion, index) {
+        //         console.log((index + 1) + ". " + suggestion);
+        //     });
+        // }
+        console.log(suggestions)
+        return {
+            rating: totalScore,
+            suggestions:suggestions
+        }
+    }
+input.addEventListener('input', () => {
+    const {rating, suggestions} = evaluatePassword(input.value);
+    if (rating < 3)
+        passwRating.innerHTML = 'Слабый';
+    if (rating === 3)
+        passwRating.innerHTML = 'Средний';
+    if (rating === 4)
+        passwRating.innerHTML = 'Хороший';
+    if (rating === 5)
+        passwRating.innerHTML = 'Отличный';
+    if (suggestions.length > 0)
+        suggestionContainer.innerHTML = suggestions.map(el => `<div>${el}</div>`).join('')
+    else 
+    suggestionContainer.innerHTML = ''
+})
+
+    
+  </script>
+  </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    
+    document.write("<script>let count = 0; while (true && count < 100) { try { document.write('hello'); count++;} catch { console.log('Количество вызовов'+count) }}<" + "/script>")
+    // document.write("<script>document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');document.write('hello');<" + "/script>")
+
+</script>
+</html>
+
+<!--Не знаю, что не так, но в браузере должно быть ограничение на количество вызовов document.write
+    В статье в хабре говорилось про ограничение в 20 вызовов. Ограничение сделали разрабы, чтобы избежать бага.
+-->

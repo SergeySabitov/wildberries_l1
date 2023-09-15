@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>HTML5</title>
+  <style>
+   article, aside, details, figcaption, figure, footer,header,
+   hgroup, menu, nav, section { display: block; }
+  </style>
+ </head>
+ <body>
+ </body>
+ <script >
+    const normalize_count_form = (function () {
+        function normalize(number, words_arr)  {
+            number = Math.abs(number);
+            if (Number.isInteger(number)) {
+                let options = [2, 0, 1, 1, 1, 2];
+                return `${number} ${words_arr[(number % 100 > 4 && number % 100 < 20) ? 2 : options[(number % 10 < 5) ? number % 10 : 5]]}`;
+            }
+            return `${number} ${words_arr[1]}`;
+        }
+        return {
+            normalize
+        }
+    })()
+    document.writeln(normalize_count_form.normalize(3, ['арбуз', 'арбуза', 'арбузов']));
+    document.writeln(normalize_count_form.normalize(20, ['арбуз', 'арбуза', 'арбузов']));
+    document.writeln(normalize_count_form.normalize(4, ['арбуз', 'арбуза', 'арбузов']));
+
+    document.writeln(normalize_count_form.normalize(3,  ['рубль', 'рубля', 'рублей']));
+    document.writeln(normalize_count_form.normalize(20,  ['рубль', 'рубля', 'рублей']));
+    document.writeln(normalize_count_form.normalize(4,  ['рубль', 'рубля', 'рублей']));
+
+ </script>
+</html>
+

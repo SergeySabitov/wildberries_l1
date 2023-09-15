@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function createAndStyleElement(tagName, style, text) {
+    // Создание нового элемента
+        var element = document.createElement(tagName);
+
+        // Применение стилей
+        for (var property in style) {
+            element.style[property] = style[property];
+        }
+        element.innerText = text
+
+        // Добавление элемента в DOM
+        document.body.appendChild(element);
+
+        return element;
+    }
+    var style = {
+        backgroundColor: 'yellow',
+        color: 'blue'
+    };
+
+    var divElement = createAndStyleElement('div', style, 'hello');
+    var style = {
+        backgroundColor: 'black',
+        color: 'white'
+    };
+
+    var divElement = createAndStyleElement('h1', style, 'world');
+</script>
+</html>

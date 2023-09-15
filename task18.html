@@ -1,0 +1,54 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    Задание 18
+  </body>
+  <script>
+    let count = 1;
+    function calculateLocalStorageSize() {
+  try {
+    if ('localStorage' in window && window['localStorage'] !== null) {
+      const chunkSize = 1024 * 64; // 64кб (размер каждой порции)
+      let usedSpace = 0;
+
+      function writeNextChunk() {
+          const testData = 'A'.repeat(chunkSize * count);
+          
+          try{
+            localStorage.setItem('testData', testData);
+          } catch {
+            console.log('error - storage full');
+            console.log('Storage size: ' + usedSpace + 'bytes')
+            localStorage.removeItem('testData');
+            return usedSpace
+          }
+          usedSpace += chunkSize;
+          count += 1;
+
+          // Выводим информацию о прогрессе записи (может потребоваться обновить интерфейс)
+          console.log(`Записано ${usedSpace} байт`);
+
+          // Записываем следующую порцию с задержкой
+          setTimeout(writeNextChunk, 10); // 10 миллисекунд задержки
+      }
+
+      // Начинаем запись
+      return writeNextChunk();
+    } else {
+      return 'localStorage is not available in this browser.';
+    }
+  } catch (e) {
+    return 'Error calculating localStorage size: ' + e.message;
+  }
+}
+
+calculateLocalStorageSize();
+
+
+  </script>
+  </html>
